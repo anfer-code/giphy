@@ -1,10 +1,10 @@
 import ListOfGif from "components/ListOfGifs";
 import Spinner from "components/Spinner";
+import TrendingSearches from "components/TrendingSearches";
 import useGifs from "hooks/useGifs";
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 
-const LAST_SEARCHES = ["Luffy", "Zoro", "Sanji"]
 
 export default function Home() {
   const [valueFilter, setValueFilter] = useState("")
@@ -32,7 +32,7 @@ export default function Home() {
           onChange={handlerChange}
         />
       </form>
-      <section>
+      <section className="Last-Seaches">
         <h2>Ultimas busquedas</h2>
         {
           loading ? 
@@ -40,16 +40,7 @@ export default function Home() {
           <ListOfGif gifs={gifs}/>
         }
       </section>
-      <section>
-        <h2>Trending Searches</h2>
-        <ul>
-          {
-            LAST_SEARCHES.map( el => (<li key={el}>
-              <Link to={`/search/${el}`}>{el}</Link>
-            </li>))
-          }
-        </ul>
-      </section>
+      <TrendingSearches />
     </>
   );
 };

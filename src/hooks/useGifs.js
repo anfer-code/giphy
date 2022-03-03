@@ -2,10 +2,15 @@ import { useContext, useEffect, useState } from 'react';
 import { searchGifs } from 'services/searchData';
 import { GifContext } from 'context/GifContext'
 
+const INITIAL_PAGE = 0;
 
 export default function useGifs({ keyword } = { keyword: null }) {
   
   const [loading, setLoading] = useState(false)
+  const [loadingNextPage, setLoadingNextPage] = useState(false)
+
+  const [page, setPage] = useState(INITIAL_PAGE)
+
   const {gifs, setGifs} = useContext(GifContext)
 
   const keywordToUse = keyword || localStorage.getItem('lastKeyword') || 'random'
@@ -22,5 +27,18 @@ export default function useGifs({ keyword } = { keyword: null }) {
     }
   , [keyword, keywordToUse, setGifs])
   
-  return {loading, gifs}
+  
+  useEffect(
+    () => {
+      if(page === INITIAL_PAGE) return
+
+      setLoadingNextPage(true)
+      searchGifs({keyword: keywordToUse, page})
+        .then( nextGifs => {
+          setGifs( prevGifs => prevGifs.concat(nextGifs))
+          setLoadingNextPage(false)
+        })
+    }, [page, keywordToUse, setGifs])
+
+  return {loading, gifs, loadingNextPage, setPage}
 };

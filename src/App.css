@@ -45,3 +45,18 @@ input {
   display: flex;
   flex-direction: column;
 }
+
+figure {
+  padding: 20px 0;
+  width: 144px;
+}
+
+figure img {
+  width: 100%;
+  height: 100px;
+
+}
+
+.Last-Seaches {
+  min-height: 100vh;
+}

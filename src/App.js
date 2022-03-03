@@ -4,6 +4,7 @@ import { Route, Link } from 'wouter';
 import Home from 'pages/Home';
 import SearchResults from 'pages/SearchResults';
 import { GifContextProvider } from 'context/GifContext';
+import logo from 'assets/logo.png'
 
 function App() {
   
@@ -11,7 +12,9 @@ function App() {
     <div className="App">
       <section className="App-content">
         <Link  to="/">
-          <h1 className='App-title'>App</h1>
+          <figure>
+            <img src={logo} alt="Logo Giffy" />
+          </figure>
         </Link>
         <GifContextProvider>
           <Route 

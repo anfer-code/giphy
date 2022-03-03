@@ -1,8 +1,8 @@
 import {API_KEY, BASE_URL} from './config'
 
-export async function searchGifs({ keyword = "morty" } = {}) {
+export async function searchGifs({ keyword = "morty", limit = '25', page = 0 } = {}) {
 
-    const URL = `${BASE_URL}/search?${API_KEY}&q=${keyword}&limit=10&offset=0&rating=g&lang=en`;
+    const URL = `${BASE_URL}/gifs/search?${API_KEY}&q=${keyword}&limit=${limit}&offset=${page * limit}&rating=g&lang=en`;
 
     const response = await fetch(URL);
     const datos = await response.json();
