@@ -1,24 +1,33 @@
 import './App.css';
-import ListOfGif from './components/ListOfGifs';
-import GifDetail from './components/GifDetail';
+import Details from './pages/Details';
 import { Route, Link } from 'wouter';
+import Home from 'pages/Home';
+import SearchResults from 'pages/SearchResults';
+import { GifContextProvider } from 'context/GifContext';
+
 function App() {
   
   return (
     <div className="App">
       <section className="App-content">
-        <h1>App</h1>
-        <Link to="/gif/luffy">Luffy</Link>
-        <Link to="/gif/zoro">Zoro</Link>
-        <Link to="/gif/sanji">Sanji</Link>
-        <Route 
-          path="/gif/:keyword"
-          component={ListOfGif}
-        />
-        <Route 
-          path="/detail/:id"
-          component={GifDetail}
-        />
+        <Link  to="/">
+          <h1 className='App-title'>App</h1>
+        </Link>
+        <GifContextProvider>
+          <Route 
+            path="/"
+            component={Home}
+          />
+          <Route 
+            path="/search/:keyword"
+            component={SearchResults}
+          />
+          <Route 
+            path="/detail/:id"
+            component={Details}
+          />
+        </GifContextProvider>
+        
 
       </section>
     </div>
