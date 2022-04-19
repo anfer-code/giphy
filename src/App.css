@@ -9,12 +9,14 @@
   color: white;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 img {
   width: 100%;
-  min-width: 250px;
-  object-fit: contain;
+  min-width: 130px;
+  height: 100%;
+  object-fit: cover;
 }
 
 .App-title {
@@ -49,14 +51,16 @@ input {
 figure {
   padding: 20px 0;
   width: 144px;
+
 }
 
 figure img {
   width: 100%;
   height: 100px;
-
+  min-width: auto;
+  object-fit: contain;
 }
 
-.Last-Seaches {
+.Last-Searches {
   min-height: 100vh;
 }

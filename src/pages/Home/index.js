@@ -1,46 +1,37 @@
+import { useCallback } from "react";
+import { useLocation } from "wouter";
 import ListOfGif from "components/ListOfGifs";
 import Spinner from "components/Spinner";
 import TrendingSearches from "components/TrendingSearches";
+import SearchForm from "components/SearchForm";
 import useGifs from "hooks/useGifs";
-import { useState } from "react";
-import { useLocation } from "wouter";
+import './style.css'
 
 
 export default function Home() {
-  const [valueFilter, setValueFilter] = useState("")
-  const [location, setLocation] = useLocation();
-  const {gifs, loading} = useGifs()
-  
+  const [ , setLocation] = useLocation();
+  const {gifs, loading} = useGifs({limit: 10, keyword: 'one piece'})
 
-  const handlerChange = ev => {
-    setValueFilter(ev.target.value)
-  }
-
-  const handlerSubmit = ev => {
-    ev.preventDefault()
-    setLocation(`/search/${valueFilter}`)
-  }
+  const handlerSubmit = useCallback(({keyword}) => {
+    console.log(keyword);
+    setLocation(`/search/${keyword}`)
+  }, [setLocation])
 
   return (
     <>
-      <form 
-        className="Searcher"
-        onSubmit={handlerSubmit}
-      >
-        <input 
-          value={valueFilter}
-          onChange={handlerChange}
-        />
-      </form>
-      <section className="Last-Seaches">
-        <h2>Ultimas busquedas</h2>
-        {
-          loading ? 
-          <Spinner /> :
-          <ListOfGif gifs={gifs}/>
-        }
-      </section>
-      <TrendingSearches />
+      <SearchForm onSubmit={handlerSubmit}/>
+      <main className="Home">
+        <section className="Last-Searches">
+          <h2>Ultimas busquedas</h2>
+          {
+            loading ? 
+            <Spinner /> :
+            <ListOfGif gifs={gifs}/>
+          }
+        </section>
+        <TrendingSearches />
+      </main>
+      
     </>
   );
 };

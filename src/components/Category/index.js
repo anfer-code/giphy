@@ -12,7 +12,7 @@ export default function Category({ name, options = []}) {
             <li 
               key={el}
               className='Category-link'>
-              <Link to={`/search/${el}`} >{el}</Link>
+              <Link to={`/search/${el}`}>{el}</Link>
             </li>
           ))
         }

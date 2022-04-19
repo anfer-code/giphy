@@ -4,7 +4,7 @@ import { GifContext } from 'context/GifContext'
 
 const INITIAL_PAGE = 0;
 
-export default function useGifs({ keyword } = { keyword: null }) {
+export default function useGifs({ keyword, limit = 5 } = {}) {
   
   const [loading, setLoading] = useState(false)
   const [loadingNextPage, setLoadingNextPage] = useState(false)
@@ -18,14 +18,14 @@ export default function useGifs({ keyword } = { keyword: null }) {
   useEffect(
     function () {
       setLoading(true)
-      searchGifs({keyword : keywordToUse})
+      searchGifs({keyword : keywordToUse, limit})
         .then( data => {
           setGifs(data)
           setLoading(false)
           localStorage.setItem('lastKeyword', keyword)
         })
     }
-  , [keyword, keywordToUse, setGifs])
+  , [keyword, keywordToUse, setGifs, limit])
   
   
   useEffect(
@@ -37,8 +37,9 @@ export default function useGifs({ keyword } = { keyword: null }) {
         .then( nextGifs => {
           setGifs( prevGifs => prevGifs.concat(nextGifs))
           setLoadingNextPage(false)
+          localStorage.setItem('lastKeyword', keyword)
         })
-    }, [page, keywordToUse, setGifs])
+    }, [page, keywordToUse, setGifs, keyword])
 
   return {loading, gifs, loadingNextPage, setPage}
 };

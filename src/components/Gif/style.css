@@ -1,7 +1,13 @@
 .Gif {
-    padding: 10px 20px;
     border-radius: 8px;
-    min-height: 250px;
-    min-width: 200px;
     margin-top: 30px;
+    position: relative;
+}
+
+.Gif h4 {    
+    position: absolute;
+    bottom: 15px;
+    font-size: 12px;
+    text-align: left;
+    left: '25px'
 }

@@ -4,7 +4,6 @@ import { searchTrending } from "services/searchTrending";
 
 export default function TrendingSearches() {
   const [trends, setTrends] = useState([])
-
   useEffect(function () {
     searchTrending()
       .then( response => setTrends(response))

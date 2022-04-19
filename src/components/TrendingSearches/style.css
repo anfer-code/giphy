@@ -1,0 +1,9 @@
+.Basis {
+    text-align: left;
+}
+
+@media (min-width: 900px) {
+    .Basis {
+        flex-basis: 20%;
+    }
+}
