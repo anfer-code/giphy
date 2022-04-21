@@ -6,11 +6,12 @@ import TrendingSearches from "components/TrendingSearches";
 import SearchForm from "components/SearchForm";
 import useGifs from "hooks/useGifs";
 import './style.css'
+import { Helmet } from "react-helmet";
 
 
 export default function Home() {
   const [ , setLocation] = useLocation();
-  const {gifs, loading} = useGifs({limit: 10, keyword: 'one piece'})
+  const {gifs, loading} = useGifs({limit: 10, })
 
   const handlerSubmit = useCallback(({keyword}) => {
     console.log(keyword);
@@ -19,6 +20,11 @@ export default function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {loading ? "Cargando..." : "Home | GiphyClon"}
+        </title>
+      </Helmet>
       <SearchForm onSubmit={handlerSubmit}/>
       <main className="Home">
         <section className="Last-Searches">

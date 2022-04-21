@@ -1,27 +1,33 @@
 import Gif from "components/Gif";
-import useGifsGlobal from "hooks/useGifsGlobal";
+import Spinner from "components/Spinner";
+import { useSinglGif } from "hooks/useSingleGif";
+import { Helmet } from "react-helmet";
+import { Redirect } from "wouter";
 
 export default function GifDetail({params}) {
-
   const { id } = params 
-  const gif = useGifsGlobal()
+  const {gif, loading, error} = useSinglGif({id})  
+  const title = `${gif?.title} | GiphyClon` || ""
 
-  const data = gif.find( el => el.id === id)
-
-    // const [detail, setDetail] = useState({})
-
-    // useEffect(
-    //     function(){
-    //         searchDetails({id}).then( res => setDetail(res))
-    //     }
-    // , [id])
+  if(loading) return (
+    <>
+      <Helmet>
+        <title>Cargando</title>
+      </Helmet>
+      <Spinner />
+    </>
+  )
+  if(error) return <Redirect to="/404" />
+  if(!gif) return null
 
     return (
       <div className="Gif">
-        {/* <h4>{detail.title}</h4>
-        <p>{detail.username}</p>
-        <img src={detail.url} alt={detail.title} /> */}
-        <Gif {...data}/>
+        <Helmet>
+          <title>
+            {title}
+          </title>
+        </Helmet>
+        <Gif {...gif}/>
       </div>
     );
 } 
